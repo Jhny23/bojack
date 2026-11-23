@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-night: #0b0d26;
+  --color-dusk: #241a5a;
+  --color-plum: #4a2a7a;
+  --color-pool: #2fd4c4;
+  --color-sunset: #ff6b6b;
+  --color-amber: #ffb347;
+  --color-cream: #fff3dd;
+
+  --font-display: "Georgia", "Times New Roman", serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-night);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-sunset);
+  color: var(--color-night);
+}
+
+/* Soft film-grain overlay for that late-night-TV feel */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Neon flicker for the hero sign */
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 6px rgba(255, 107, 107, 0.9),
+      0 0 24px rgba(255, 107, 107, 0.7),
+      0 0 60px rgba(255, 107, 107, 0.5);
+  }
+  20%, 24%, 55% {
+    opacity: 0.55;
+    text-shadow: none;
+  }
+}
+
+.neon {
+  animation: flicker 6s infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon,
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
